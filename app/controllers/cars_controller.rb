@@ -43,7 +43,7 @@ class CarsController < ApplicationController
     car.description = params[:description]
     car.background_color = params[:background_color]
     car.price = params[:price]
-    car.image.attach.(io: params[:image], filename: "#{params[:name]}.png")
+    car.image.attach(io: params[:image], filename: "#{params[:name]}.png")
     car.horse_power = (params[:horse_power])
     if car.save
       render json: { message: 'Car saved!' }
