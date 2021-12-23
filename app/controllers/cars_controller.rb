@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require "base64"
 
 class CarsController < ApplicationController
   def index
@@ -43,7 +44,8 @@ class CarsController < ApplicationController
     car.description = params[:description]
     car.background_color = params[:background_color]
     car.price = params[:price]
-    car.image.attach(io: params[:image], filename: "#{params[:name]}.png")
+    image = Base64.decode64(params[:image])
+    car.image.attach(io: image, filename: "#{params[:name]}.png")
     car.horse_power = (params[:horse_power])
     if car.save
       render json: { message: 'Car saved!' }
