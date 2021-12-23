@@ -5,6 +5,10 @@ class CarsController < ApplicationController
     render json: Car.all
   end
 
+  def car_params
+    params.permit(:name, :description, :background_color, :price, :image, :horse_power, :id, :car_id)
+  end
+
   def show
     render json: Car.find(params[:id])
   end
