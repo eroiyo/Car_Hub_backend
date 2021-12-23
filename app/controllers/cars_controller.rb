@@ -46,7 +46,7 @@ class CarsController < ApplicationController
     car.price = params[:price]
     image = Base64.decode64(params[:image].delete("data:image/png;base64,"))
     car.image.attach(
-      io: image,
+      io: StringIO.new(image),
       filename: "#{params[:name]}",
       content_type: "image/png"
     )
