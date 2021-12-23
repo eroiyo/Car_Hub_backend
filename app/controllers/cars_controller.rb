@@ -45,7 +45,7 @@ class CarsController < ApplicationController
     car.background_color = params[:background_color]
     car.price = params[:price]
     image = Base64.decode64(params[:image])
-    car.image.attach(io: image, filename: "#{params[:name]}.png")
+    car.image.attach(image)
     car.horse_power = (params[:horse_power])
     if car.save
       render json: { message: 'Car saved!' }
