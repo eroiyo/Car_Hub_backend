@@ -38,9 +38,9 @@ class CarsController < ApplicationController
     car.image.attach(params[:image])
     if car.valid?
       car.save
-      render json: { message: 'Car saved!' } , status: 200
+      render json: { message: 'Car saved!', status: 200 } , status: 200
     else
-      render json: { message: car.errors.full_messages }, status: 500
+      render json: { message: car.errors.full_messages, status: 500 }, status: 500
     end
   end
 
