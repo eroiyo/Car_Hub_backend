@@ -27,9 +27,9 @@ class CarsController < ApplicationController
         ncar.image = car.image_url
         result.push(ncar)
       end
-      render json: result, status 200
+      render json: result, status: 200
     else
-      render json: Car.all, status 401
+      render json: Car.all, status: 401
     end
   end
 
