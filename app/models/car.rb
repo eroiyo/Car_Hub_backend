@@ -11,6 +11,7 @@ class Car < ApplicationRecord
   validates :fee, numericality: { greater_than: 0 }
   validates :horse_power, numericality: { greater_than: 0 }
   validates :background_color, presence: true, format: { with: /\A#[0123456789ABCDEFabcdef]{6}\Z/, message: 'please enter keywords in correct format' }
+  before_save :parse
 
   def image_url
     image.service_url
@@ -30,5 +31,13 @@ class Car < ApplicationRecord
       total_price: total_price,
       image: image_url,
       horse_power: horse_power }
+  end
+
+  private
+
+  def parse
+    self.fee = self.fee.to_f
+    self.price = self.price.to_f
+    self.horse_power = self.horse_power.to_f
   end
 end
