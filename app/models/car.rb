@@ -36,8 +36,8 @@ class Car < ApplicationRecord
   private
 
   def parse
-    self.fee = self.fee.to_f
-    self.price = self.price.to_f
-    self.horse_power = self.horse_power.to_f
+    self.fee = fee.to_f
+    self.price = price.to_f
+    self.horse_power = horse_power.to_f
   end
 end
