@@ -5,21 +5,18 @@ class ReservedController < ApplicationController
     if user_signed_in?
       render json: current_user.reserved_cars
     else
-      render json: { message: 'You are not connected' }
+      render json: { message: 'You are not connected' }, status: 401
     end
   end
 
   def create
     if user_signed_in?
-      reserved_car = ReservedCar.new
+      reserved_car = ReservedCar.new(reserved_params)
       reserved_car.user = current_user
-      reserved_car.car = Car.find(params[:car_id])
-      reserved_car.country = params[:country]
-      reserved_car.date = params[:date]
       if reserved_car.save
-        render json: { message: 'Car Reserved' }
+        render json: { message: 'Car Reserved' }, status: 200
       else
-        render json: { message: 'Invalid Data' }
+        render json: { message: 'Invalid Data' }, status: 500
       end
     else
       render json: { message: 'You are not connected' }
@@ -30,12 +27,18 @@ class ReservedController < ApplicationController
     if user_signed_in?
       if current_user.reserved_cars.find(params[:reserved_id])
         current_user.reserved_cars.delete_by(id: params[:reserved_id])
-        render json: { message: 'Reservation Deleted' }
+        render json: { message: 'Reservation Deleted' }, status: 200
       else
-        render json: { message: 'Reservation Not Found' }
+        render json: { message: 'Reservation Not Found' }, status: 404
       end
     else
-      render json: { message: 'You are not connected' }
+      render json: { message: 'You are not connected' }, status: 401
     end
+  end
+
+  private
+
+  def reserved_params
+    params.permit(:car_id, :country, :date)
   end
 end
