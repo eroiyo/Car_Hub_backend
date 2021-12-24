@@ -16,14 +16,20 @@ class CarsController < ApplicationController
       result = []
       car_struct = Struct.new(:id, :name, :description, :background_color, :price, :image, :horse_power, :banned)
       all.each do |car|
-        ncar = car_struct.new(car.attributes)
+        ncar = car_struct.new
+        ncar.id = car.id
+        ncar.name = car.name
+        ncar.description = car.description
+        ncar.background_color = car.background_color
+        ncar.price = car.price
+        ncar.horse_power = car.horse_power
         ncar.banned = banneds_ids.include? car.id
         ncar.image = car.image_url
         result.push(ncar)
       end
-      render json: result, status: 200
+      render json: result, status 200
     else
-      render json: Car.all, status: 401
+      render json: Car.all, status 401
     end
   end
 
@@ -32,9 +38,9 @@ class CarsController < ApplicationController
     car.image.attach(params[:image])
     if car.valid?
       car.save
-      render json: { message: 'Car saved!' }
+      render json: { message: 'Car saved!' } , status: 200
     else
-      render json: { message: car.errors.full_messages }
+      render json: { message: car.errors.full_messages }, status: 500
     end
   end
 
