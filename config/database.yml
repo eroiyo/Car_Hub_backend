@@ -87,5 +87,5 @@ test:
 production:
   <<: *default
   database: CarsHub
-  username: ruby_blog
+  username: rubyblog
   password: <%= ENV['RUBY_BLOG_DATABASE_PASSWORD'] %>
