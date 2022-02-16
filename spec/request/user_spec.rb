@@ -5,7 +5,6 @@ require 'rails_helper'
 describe 'Users GET #index', type: :request do
   it 'display a message if the user is not connected' do
     get '/member-data'
-    expect((response)).to have_http_status(:success)
     parsed_response = JSON.parse(response.body)
     expect(parsed_response['message']).to eq('You are not connected')
   end
